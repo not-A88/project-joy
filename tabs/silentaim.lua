@@ -312,3 +312,5 @@ function new(window)
         module._desync = bool
     end)
 end
+
+return new 
