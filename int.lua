@@ -29,7 +29,6 @@ import('bypasses/teleport')
 -- tabs loader.
 for _,tabPath in pairs(tabs) do
     local tab = import('tabs/'..tabPath)
-    print(tabPath,tab)
     tab(window)
 end
 
