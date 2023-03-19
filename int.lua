@@ -20,3 +20,7 @@ for i,v in pairs(tabs) do
 end
 
 window.open()
+
+-- Notes:
+--  Add file loader to the int part.
+--  Add profiles to buyables later.
