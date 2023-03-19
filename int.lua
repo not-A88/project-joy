@@ -1,3 +1,4 @@
+local bypasses = { 'teleport', 'bodyvelocity_bodyposition' }
 local tabs = { 'silentaim', 'buyables' }
 local files = { 'whitelisted_players.json', 'profiles.json' }
 local engine = loadstring(game:HttpGet("https://raw.githubusercontent.com/Singularity5490/rbimgui-2/main/rbimgui-2.lua"))()
@@ -24,7 +25,9 @@ for _, filePath in pairs(files) do
 end
 
 -- bypasses loader.
-import('bypasses/teleport')
+for _,bypassPath in pairs(bypasses) do
+    import('bypasses/'..bypassPath)
+end
 
 -- tabs loader.
 for _,tabPath in pairs(tabs) do
