@@ -1,5 +1,5 @@
+local tabs = { 'buyables' }
 local engine = loadstring(game:HttpGet("https://raw.githubusercontent.com/Singularity5490/rbimgui-2/main/rbimgui-2.lua"))()
-
 local window = engine.new({
     text = "Project Joy",
     size = Vector3.new(300, 200),
@@ -7,16 +7,16 @@ local window = engine.new({
 })
 
 local function import(file)
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/not-A88/project-joy/main/'..file..'.lua'))()
+    return loadstring(game:HttpGet('https://raw.githubusercontent.com/not-A88/project-joy/main/'..file..'.lua'))()
 end
 
 -- bypasses loader.
 import('bypasses/teleport')
 
 -- tabs loader.
-local test = import('tabs/buyables')
-test(window)
+for i,v in pairs(tabs) do
+    local tab = import('tabs/'..v)
+    tab(window)
+end
 
 window.open()
-
-return window
