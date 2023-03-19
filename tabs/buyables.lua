@@ -100,6 +100,4 @@ function new(window)
     end)
 end
 
-return {
-    new 
-}
+return new
