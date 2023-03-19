@@ -2,7 +2,7 @@ local engine = loadstring(game:HttpGet("https://raw.githubusercontent.com/Singul
 
 local window = engine.new({
     text = "Project Joy",
-    size = UDim2.new(300, 200),
+    size = Vector3.new(300, 200),
     color = Color3.fromRGB(25, 25, 25)
 })
 
