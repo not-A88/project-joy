@@ -3,7 +3,7 @@ local files = { 'whitelisted_players.json', 'profiles.json' }
 local engine = loadstring(game:HttpGet("https://raw.githubusercontent.com/Singularity5490/rbimgui-2/main/rbimgui-2.lua"))()
 local window = engine.new({
     text = "Project Joy",
-    size = Vector3.new(300, 200),
+    size = Vector3.new(500, 400),
     color = Color3.fromRGB(25, 25, 25)
 })
 
@@ -27,8 +27,9 @@ end
 import('bypasses/teleport')
 
 -- tabs loader.
-for i,v in pairs(tabs) do
-    local tab = import('tabs/'..v)
+for _,tabPath in pairs(tabs) do
+    local tab = import('tabs/'..tabPath)
+    print(tabPath,tab)
     tab(window)
 end
 
