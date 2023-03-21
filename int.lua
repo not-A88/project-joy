@@ -31,8 +31,8 @@ end
 
 -- tabs loader.
 for _,tabPath in pairs(tabs) do
-    local tab = import('tabs/'..tabPath)
     local tabSuccess, tabResponse = pcall(function()
+        local tab = import('tabs/'..tabPath)
         tab(window)
     end)
     if tabSuccess then
