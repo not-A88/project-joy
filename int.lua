@@ -36,9 +36,9 @@ for _,tabPath in pairs(tabs) do
         tab(window)
     end)
     if tabSuccess then
-        print('Loaded: '..tabPath)
+        print('Loaded:',tabPath)
     else
-        print('Failed to load: '..tabPath)
+        print('Failed to load:',tabPath,'reason:',tabResponse)
     end
 end
 
