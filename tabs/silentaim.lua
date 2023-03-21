@@ -76,8 +76,8 @@ end
 function module:_calculate(player)
     if self.useMethodTwo then
         local parts = self:_returnParts(player.Character)
-        local newPos = parts.humanoidrootpart.CFrame.Position + ( parts.humanoidrootpart.Velocity / 5.4)
-        local newPosForY = parts.humanoidrootpart.CFrame.Position + ( parts.humanoidrootpart.Velocity / 6)
+        local newPos = parts.humanoidrootpart.CFrame.Position + ( parts.humanoidrootpart.Velocity / 5.4 )
+        local newPosForY = parts.humanoidrootpart.CFrame.Position + ( parts.humanoidrootpart.Velocity / 6 )
         return Vector3.new( newPos.X, newPosForY.Y, newPos.Z)
     end
     local parts = self:_returnParts(player.Character)
