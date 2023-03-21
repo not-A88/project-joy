@@ -217,7 +217,7 @@ function new(window)
     end)
     
     silent.new("switch", { text = "Use original prediction?"; }).event:Connect(function(bool)
-        module.useMethodTwo = true
+        module.useMethodTwo = bool
     end)
     silent.new("switch", { text = "Hold to toggle?"; }).event:Connect(function(bool)
         module._toggle.isToggleable = not bool
