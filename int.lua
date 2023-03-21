@@ -1,5 +1,5 @@
 local bypasses = { 'teleport', 'bodyvelocity_bodyposition' }
-local tabs = { 'silentaim', 'buyables' }
+local tabs = { 'silentaim', 'buyables', 'bindables' }
 local files = { 'whitelisted_players.json', 'profiles.json' }
 local engine = loadstring(game:HttpGet("https://raw.githubusercontent.com/Singularity5490/rbimgui-2/main/rbimgui-2.lua"))()
 local window = engine.new({
@@ -16,11 +16,11 @@ end
 local files = { 'whitelisted_players.json', 'profiles.json' }
 for _, filePath in pairs(files) do
     local file, info = pcall(function()
-        return readfile('ProjectC/'..filePath)
+        return readfile('ProjectJoy/'..filePath)
     end)
     if not file then
-        makefolder('ProjectC')
-        writefile('ProjectC/'..filePath,'[]')
+        makefolder('ProjectJoy')
+        writefile('ProjectJoy/'..filePath,'[]')
     end
 end
 
