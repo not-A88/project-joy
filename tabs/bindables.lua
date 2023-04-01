@@ -91,17 +91,23 @@ end)
 local macroEnabled = false
 local keybind = Enum.KeyCode.W
 
-local HumanoidRootPart = player.Character.HumanoidRootPart
 local humanoid = player.Character.Humanoid
 local croch = game.ReplicatedStorage.ClientAnimations.Crouching
 local track = humanoid:LoadAnimation(croch)
 local down = false
 
-local velocity = HumanoidRootPart:FindFirstChild('BodyVelocity') or Instance.new('BodyVelocity')
+local velocity = player.Character:FindFirstChild('UpperTorso'):FindFirstChild('BodyVelocity') or Instance.new('BodyVelocity')
 velocity.maxForce = Vector3.new(100000, 0, 100000)
 
+player.CharacterAdded:Connect(function(character)
+	local root = character:WaitForChild('UpperTorso')
+	velocity = root:FindFirstChild('BodyVelocity') or Instance.new('BodyVelocity')
+	velocity.maxForce = Vector3.new(100000, 0, 100000)
+end)
+
+
 game.RunService.RenderStepped:Connect(function()
-    if down then
+    if down and velocity then
         velocity.Parent = player.Character.UpperTorso
         velocity.velocity = (humanoid.MoveDirection) * macroSpeed
     end
