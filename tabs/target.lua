@@ -60,7 +60,7 @@ function module:_getPlayerByName(name)
 end
 
 function new(window)
-    local target = window.new({ text = "Target", })
+    local target = window.new({ text = "Target" })
     local playerDropdown = target.new("dropdown", { text = "Players", color = Color3.fromRGB(25, 25, 25) })
     playerDropdown.event:Connect(function(player)
         module._target = player
