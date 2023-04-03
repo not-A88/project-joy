@@ -92,8 +92,6 @@ local macroEnabled = false
 local keybind = Enum.KeyCode.W
 
 local humanoid = player.Character.Humanoid
-local croch = game.ReplicatedStorage.ClientAnimations.Crouching
-local track = humanoid:LoadAnimation(croch)
 local down = false
 
 local velocity = player.Character:FindFirstChild('UpperTorso'):FindFirstChild('BodyVelocity') or Instance.new('BodyVelocity')
