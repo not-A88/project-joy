@@ -1,5 +1,5 @@
 local bypasses = { 'teleport', 'bodyvelocity_bodyposition' }
-local tabs = { 'silentaim', 'buyables', 'bindables' }
+local tabs = { 'silentaim', 'buyables', 'bindables', 'target' }
 local files = { 'whitelisted_players.json', 'profiles.json' }
 local engine = loadstring(game:HttpGet("https://raw.githubusercontent.com/Singularity5490/rbimgui-2/main/rbimgui-2.lua"))()
 local window = engine.new({
