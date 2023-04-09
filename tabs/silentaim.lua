@@ -52,7 +52,7 @@ function module:_getPlayer()
     local closest = { mouse = math.huge, player = math.huge }
     local distance = { mouse = math.huge, player = math.huge }
     for _, player in pairs(players:GetPlayers()) do
-        if player ~= localpalyer and player.Character and player.Character:FindFirstChild('Humanoid') and player.Character.Humanoid:GetState() ~= Enum.HumanoidStateType.Dead and player.Character:FindFirstChild('HumanoidRootPart')  then
+        if player ~= localpalyer and player.Character and player.Character:FindFirstChild('Humanoid') and player.Character:FindFirstChild('HumanoidRootPart')  then
             if table.find(self._whitelistedPlayers,player.Name) or table.find(self._whitelistedPlayers,player.UserId) then break end
             local character = player.Character
             local parts = self:_returnParts(character)

@@ -2,7 +2,6 @@ local flySpeed = 50
 local macroSpeed = 50
 
 -- Fly
-
 local player = game.Players.LocalPlayer
 local character, humanoid, camera, flying
 
