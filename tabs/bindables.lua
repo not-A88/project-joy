@@ -2,89 +2,105 @@ local flySpeed = 50
 local macroSpeed = 50
 
 -- Fly
+
 local player = game.Players.LocalPlayer
-local character, humanoid, camera, bodyVelocity, bodyAngularVelocity, flying
+local character, humanoid, camera, flying
 
 local buttons = { W = false, S = false, A = false, D = false, Moving = false }
 
 local function startFly()
-	if not player.Character or not player.Character.Head or flying then return end
+    if not player.Character or not player.Character.Head or flying then
+        return
+    end
 
-	character = player.Character
-	humanoid = character:FindFirstChildOfClass("Humanoid")
-	humanoid.PlatformStand = true
-	camera = workspace.Camera
-	bodyVelocity = Instance.new("BodyVelocity", character.Head)
-	bodyAngularVelocity = Instance.new("BodyAngularVelocity", character.Head)
-	bodyVelocity.MaxForce = Vector3.new(10000, 10000, 10000)
-	bodyVelocity.P = 1000
-	bodyAngularVelocity.MaxTorque = Vector3.new(10000, 10000, 10000)
-	bodyAngularVelocity.P = 1000
-	flying = true
+    character = player.Character
+    humanoid = character:FindFirstChildOfClass("Humanoid")
+    humanoid.PlatformStand = true
+    camera = workspace.Camera
+    flying = true
 
-	humanoid.Died:Connect(function()
-		flying = false
-	end)
+    -- Set velocity of all parts to zero
+    for _, part in pairs(character:GetDescendants()) do
+        if part:IsA("BasePart") then
+            part.Velocity = Vector3.new(0, 0, 0)
+        end
+    end
+
+    humanoid.Died:Connect(function()
+        flying = false
+    end)
 end
 
-local function endFly()
-	if not player.Character or not flying then return end
 
-	humanoid.PlatformStand = false
-	bodyVelocity:Destroy()
-	bodyAngularVelocity:Destroy()
-	flying = false
+local function endFly()
+    if not player.Character or not flying then
+        return
+    end
+
+    humanoid.PlatformStand = false
+    flying = false
 end
 
 game:GetService("UserInputService").InputBegan:Connect(function(input, GPE)
-	if GPE then return end
+    if GPE then
+        return
+    end
 
-	local keyCode = input.KeyCode
-	if buttons[keyCode.Name] ~= nil then
-		buttons[keyCode.Name] = true
-		buttons.Moving = true
-	end
+    local keyCode = input.KeyCode
+    if buttons[keyCode.Name] ~= nil then
+        buttons[keyCode.Name] = true
+        buttons.Moving = true
+    end
 end)
 
 game:GetService("UserInputService").InputEnded:Connect(function(input, GPE)
-	if GPE then return end
+    if GPE then
+        return
+    end
 
-	local keyCode = input.KeyCode
-	if buttons[keyCode.Name] ~= nil then
-		buttons[keyCode.Name] = false
-	end
+    local keyCode = input.KeyCode
+    if buttons[keyCode.Name] ~= nil then
+        buttons[keyCode.Name] = false
+    end
 
-	buttons.Moving = false
-	for _, button in pairs(buttons) do
-		if button then
-			buttons.Moving = true
-			break
-		end
-	end
+    buttons.Moving = false
+    for _, button in pairs(buttons) do
+        if button then
+            buttons.Moving = true
+            break
+        end
+    end
 end)
 
 local function setVec(vec) return vec.Unit * flySpeed end
 
 game:GetService("RunService").Heartbeat:Connect(function(step)
-	if not flying or not character.PrimaryPart then
-		return
-	end
+    if not flying or not character.PrimaryPart then
+        return
+    end
 
-	local primaryPart = character.PrimaryPart
-	local position = primaryPart.Position
-	local cameraCFrame = camera.CFrame
-	local x, y, z = cameraCFrame:ToEulerAnglesXYZ()
-	local newCFrame = CFrame.new(position) * CFrame.Angles(x, y, z)
-	primaryPart.CFrame = newCFrame
+    task.spawn(function()
+        for _, part in pairs(character:GetDescendants()) do
+            if part:IsA("BasePart") then
+                part.Velocity = Vector3.new(0, 0, 0)
+            end
+        end
+    end)
 
-	if buttons.Moving then
-		local velocity = Vector3.new()
-		if buttons.W then velocity = velocity + setVec(cameraCFrame.LookVector) end
-		if buttons.S then velocity = velocity - setVec(cameraCFrame.LookVector) end
-		if buttons.A then velocity = velocity - setVec(cameraCFrame.RightVector) end
-		if buttons.D then velocity = velocity + setVec(cameraCFrame.RightVector) end
-		character:TranslateBy(velocity * step)
-	end
+    local primaryPart = character.PrimaryPart
+    local position = primaryPart.Position
+    local cameraCFrame = camera.CFrame
+    local newCFrame = CFrame.new(position, position + workspace.CurrentCamera.CFrame.LookVector)
+    primaryPart.CFrame = newCFrame
+
+    if buttons.Moving then
+        local velocity = Vector3.new()
+        if buttons.W then velocity = velocity + setVec(workspace.CurrentCamera.CFrame.LookVector) end
+        if buttons.S then velocity = velocity - setVec(workspace.CurrentCamera.CFrame.LookVector) end
+        if buttons.A then velocity = velocity - setVec(workspace.CurrentCamera.CFrame.RightVector) end
+        if buttons.D then velocity = velocity + setVec(workspace.CurrentCamera.CFrame.RightVector) end
+        character:TranslateBy(velocity * step)
+    end
 end)
 
 -- Macro
