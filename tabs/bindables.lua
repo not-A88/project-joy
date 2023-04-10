@@ -106,7 +106,6 @@ end)
 local macroEnabled = false
 local keybind = Enum.KeyCode.W
 
-local humanoid = player.Character.Humanoid
 local down = false
 
 local velocity = player.Character:FindFirstChild('UpperTorso'):FindFirstChild('BodyVelocity') or Instance.new('BodyVelocity')
@@ -118,11 +117,10 @@ player.CharacterAdded:Connect(function(character)
 	velocity.maxForce = Vector3.new(100000, 0, 100000)
 end)
 
-
 game.RunService.RenderStepped:Connect(function()
     if down and velocity then
         velocity.Parent = player.Character.UpperTorso
-        velocity.velocity = (humanoid.MoveDirection) * macroSpeed
+        velocity.velocity = (player.Character.Humanoid.MoveDirection) * macroSpeed
     end
 end)
 
