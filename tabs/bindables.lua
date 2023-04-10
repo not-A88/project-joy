@@ -119,6 +119,9 @@ end)
 
 game.RunService.RenderStepped:Connect(function()
     if down and velocity then
+	    local root = character:WaitForChild('UpperTorso')
+        velocity = root:FindFirstChild('BodyVelocity') or Instance.new('BodyVelocity')
+        velocity.maxForce = Vector3.new(100000, 0, 100000)
         velocity.Parent = player.Character.UpperTorso
         velocity.velocity = (player.Character.Humanoid.MoveDirection) * macroSpeed
     end
