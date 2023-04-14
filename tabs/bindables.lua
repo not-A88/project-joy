@@ -3,7 +3,9 @@ local macroSpeed = 50
 
 -- Fly
 local player = game.Players.LocalPlayer
-local character, humanoid, camera, flying
+local character, humanoid, camera, flying, gravityValue
+
+gravityValue = workspace.Gravity
 
 local buttons = { W = false, S = false, A = false, D = false, Moving = false }
 
@@ -30,14 +32,22 @@ local function startFly()
     end)
 end
 
-
 local function endFly()
     if not player.Character or not flying then
         return
     end
 
+    workspace.Gravity = gravityValue
     humanoid.PlatformStand = false
     flying = false
+
+    task.spawn(function()
+        for _, part in pairs(character:GetDescendants()) do
+            if part:IsA("BasePart") then
+                part.Velocity = Vector3.new(0, 0, 0)
+            end
+        end
+    end)
 end
 
 game:GetService("UserInputService").InputBegan:Connect(function(input, GPE)
@@ -99,6 +109,10 @@ game:GetService("RunService").Heartbeat:Connect(function(step)
         if buttons.A then velocity = velocity - setVec(workspace.CurrentCamera.CFrame.RightVector) end
         if buttons.D then velocity = velocity + setVec(workspace.CurrentCamera.CFrame.RightVector) end
         character:TranslateBy(velocity * step)
+        workspace.Gravity = gravityValue
+    else
+        workspace.Gravity = 0
+        character:TranslateBy(Vector3.new(0,0,0))
     end
 end)
 
