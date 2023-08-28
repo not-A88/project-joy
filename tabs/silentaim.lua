@@ -24,6 +24,7 @@ local module = {
     _whitelistedPlayers = {},
     _target = nil,
     _desync = false,
+    _skipKeyUse = false,
 }
 
 local file, info = pcall(function()
@@ -174,7 +175,12 @@ end)
 
 userInputService.InputBegan:Connect(function(input,gameEvent)
     if not gameEvent and input.KeyCode == Enum.KeyCode.Q and module._isInUse then
-        if module._toggle.isToggleable and module._toggle.isOn == false then
+        if module._toggle._skipKeyUse then
+            module._toggle.isOn = true
+            module._aimbotConnection.index:Fire({
+                player = module:_getPlayer()
+            })
+        elseif module._toggle.isToggleable and module._toggle.isOn == false then
             module._toggle.isOn = true
             module._aimbotConnection.index:Fire({
                 player = module:_getPlayer()
@@ -223,6 +229,12 @@ function new(window)
         module._toggle.isToggleable = not bool
         module._toggle.isOn = false
     end)
+
+    silent.new("switch", { text = "Skip key press?"; }).event:Connect(function(bool)
+        module._toggle._skipKeyUse = bool
+        module._toggle.isOn = false
+    end)
+    
     silent.new("slider", { text = "Fov", color = Color3.fromRGB(45, 45, 45), min = 20, max = 1000, value = 400, rounding = 0.5, }).event:Connect(function(x)
         module._fov.radius = x
         circle.Radius = x
