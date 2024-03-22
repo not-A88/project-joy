@@ -24,10 +24,11 @@ for _, filePath in pairs(files) do
     end
 end
 
+-- ! Removed because exploits dont support make_writeable apparently. :(
 -- bypasses loader.
-for _,bypassPath in pairs(bypasses) do
-    import('bypasses/'..bypassPath)
-end
+-- for _,bypassPath in pairs(bypasses) do
+--     import('bypasses/'..bypassPath)
+-- end
 
 -- tabs loader.
 for _,tabPath in pairs(tabs) do
