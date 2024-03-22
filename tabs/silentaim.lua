@@ -103,7 +103,6 @@ local tracerLine = Drawing.new('Line')
 tracerLine.Visible = false
 tracerLine.Color = Color3.fromRGB(45, 45, 45)
 tracerLine.Thickness = 1
-tracerLine.To = Vector2.new(module._camera.ViewportSize.X/2,module._camera.ViewportSize.Y/2)
 
 local tracerCircle = Drawing.new('Circle')
 tracerCircle.Filled = true
@@ -155,6 +154,7 @@ game.RunService.RenderStepped:Connect(function()
         local predictionLocation = module:_calculate( module._activePlayer )
         local vector, isVisible = module._camera:WorldToViewportPoint(predictionLocation)
         if module._hitTracer then
+            tracerLine.To = module:_mousePosition() + Vector2.new(5, 5)
             tracerLine.From = Vector2.new(vector.X,vector.Y)
             tracerCircle.Position = Vector2.new(vector.X + (10 / 2),vector.Y + (10 / 2))
         end
