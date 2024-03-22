@@ -106,7 +106,7 @@ tracerLine.Thickness = 1
 
 local tracerCircle = Drawing.new('Circle')
 tracerCircle.Filled = true
-tracerCircle.Radius = 10
+tracerCircle.Radius = 5
 tracerCircle.Visible = false
 tracerCircle.NumSides = 32
 tracerCircle.Color = Color3.fromRGB(64, 255, 153)
